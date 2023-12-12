@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/helloworld", StaticFiles(directory="test-frontend"), name="static")
+app.mount("/helloworld", StaticFiles(directory="src"), name="static")
 
 app.include_router(authenticator.router)
 app.include_router(messages_router)
