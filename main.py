@@ -7,11 +7,8 @@ from peers.routers import peers
 from matching.routers import matching
 from tags.routers import tags
 import os
-from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
-
-app.mount("/helloworld", StaticFiles(directory="src"), name="static")
 
 app.include_router(authenticator.router)
 app.include_router(messages_router)
