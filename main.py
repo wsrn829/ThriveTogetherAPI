@@ -1,18 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from authenticator import authenticator
-from messages.routers.messages import messages_router
-from accounts.routers import accounts
-from peers.routers import peers
-from matching.routers import matching
-from tags.routers import tags
+# from authenticator import authenticator
+# from messages.routers.messages import messages_router
+# from accounts.routers import accounts
+# from peers.routers import peers
+# from matching.routers import matching
+# from tags.routers import tags
 import os
-import uvicorn
 
 app = FastAPI()
 
-app.include_router(authenticator.router)
-app.include_router(messages_router)
+# app.include_router(authenticator.router)
+# app.include_router(messages_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,10 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(accounts.router)
-app.include_router(peers.router)
-app.include_router(matching.router)
-app.include_router(tags.router)
+# app.include_router(accounts.router)
+# app.include_router(peers.router)
+# app.include_router(matching.router)
+# app.include_router(tags.router)
 
 
 @app.get("/")
@@ -47,7 +46,3 @@ def launch_details():
             "min": "00",
         }
     }
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host='127.0.0.1', port=8000)
