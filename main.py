@@ -7,6 +7,7 @@ from peers.routers import peers
 from matching.routers import matching
 from tags.routers import tags
 import os
+import uvicorn
 
 app = FastAPI()
 
@@ -46,3 +47,7 @@ def launch_details():
             "min": "00",
         }
     }
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host='127.0.0.1', port=8000)
