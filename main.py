@@ -1,17 +1,34 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-# from authenticator import authenticator
-# from messages.routers.messages import messages_router
-# from accounts.routers import accounts
-# from peers.routers import peers
-# from matching.routers import matching
-# from tags.routers import tags
+from database import connect_to_db, close_connection, SessionLocal
+# from database import create_database_engine
+# from database import engine, SessionLocal
+from dotenv import load_dotenv
+
+
 import os
+
+# from authenticator import authenticator
+from messages.routers import messages
+from accounts.routers import accounts
+from peers.routers import peers
+from matching.routers import matching
+from tags.routers import tags
+
+load_dotenv()
 
 app = FastAPI()
 
+
+# db_engine = create_database_engine()
+
+
 # app.include_router(authenticator.router)
-# app.include_router(messages_router)
+app.include_router(messages.messages_router)
+app.include_router(accounts.router)
+app.include_router(peers.router)
+app.include_router(matching.router)
+app.include_router(tags.router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,25 +41,42 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(accounts.router)
-# app.include_router(peers.router)
-# app.include_router(matching.router)
-# app.include_router(tags.router)
-
 
 @app.get("/")
 def root():
     return {"message": "You hit the root path!"}
 
 
-@app.get("/api/launch-details")
-def launch_details():
-    return {
-        "launch_details": {
-            "module": 3,
-            "week": 17,
-            "day": 5,
-            "hour": 19,
-            "min": "00",
-        }
-    }
+@app.on_event("startup")
+async def startup():
+    app.db_connection = connect_to_db()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    close_connection(app.db_connection)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+# async def get_database():
+#     return app.db_connection
+
+
+# @app.get("/api/launch-details")
+# def launch_details():
+#     return {
+#         "launch_details": {
+#             "module": 3,
+#             "week": 17,
+#             "day": 5,
+#             "hour": 19,
+#             "min": "00",
+#         }
+#     }

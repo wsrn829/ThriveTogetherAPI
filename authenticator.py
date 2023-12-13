@@ -1,8 +1,11 @@
 import os
 from fastapi import Depends
+from dotenv import load_dotenv
 from jwtdown_fastapi.authentication import Authenticator
 from accounts.queries.accounts import AccountQueries
 from accounts.models import AccountOut, AccountOutWithPassword
+
+load_dotenv()
 
 
 class MyAuthenticator(Authenticator):

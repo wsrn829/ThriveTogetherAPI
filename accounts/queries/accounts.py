@@ -1,8 +1,11 @@
 import os
+from dotenv import load_dotenv
 from ..models import AccountIn, AccountOut, AccountOutWithPassword
 from psycopg_pool import ConnectionPool
 
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+load_dotenv()
+
+pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
 
 
 class DuplicateAccountError(ValueError):

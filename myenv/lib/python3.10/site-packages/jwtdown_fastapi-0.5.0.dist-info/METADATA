@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: jwtdown-fastapi
+Version: 0.5.0
+Summary: An easy-to-use authentication library for FastAPI.
+Home-page: https://gitlab.com/galvanize-inc/foss/jwtdown-fastapi
+License: MIT
+Keywords: fastapi,authentication
+Author: Galvanize, Inc.
+Author-email: foss@galvanize.com
+Maintainer: Daniel Billotte
+Maintainer-email: daniel.billotte@galvanize.com
+Requires-Python: >=3.9,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: fastapi (>=0.89.0,<=0.92.0)
+Requires-Dist: passlib[bcrypt] (>=1.7.4,<2.0.0)
+Requires-Dist: python-jose[cryptography] (>=3.3.0,<4.0.0)
+Requires-Dist: python-multipart (>=0.0.5,<0.0.6)
+Project-URL: Documentation, https://jwtdown-fastapi.readthedocs.io/
+Project-URL: Repository, https://gitlab.com/galvanize-inc/foss/jwtdown-fastapi
+Description-Content-Type: text/markdown
+
+# JWTdown for FastAPI
+
+This is an easy-to-use authentication mechanism for FastAPI.
+
+It draws inspiration from the tutorials found in the FastAPI
+documentation.
+
+Please read the
+[documentation](https://jwtdown-fastapi.readthedocs.io/en/latest/intro.html)
+to use this project.
+
+## Developing
+
+Development on this project is limited to employees, contractors, and students
+of Galvanize, Inc.
+
+When a new version of FastAPI is released:
+
+1. Review the `MINIMUM_VERSION` in `update_fastapi_versions.py` and bump it
+   as necessary
+1. Run the `update_fastapi_versions.py`
+1. Run `poetry update`
+1. Add and commit the changes to:
+   * `pyproject.toml`
+   * `.tox-ci.yml`
+   * `poetry.lock`
+
+If all three of those things didn't change, check what you're doing.
+
