@@ -4,19 +4,26 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from matching.models import BaseModel as MatchingBase
-from messages.models import BaseModel as MessagesBase
-from peers.models import BaseModel as PeersBase
-from tags.models import BaseModel as TagsBase
+from accounts.alchemyModels import AccountsBase
+from matching.alchemyModels import MatchesBase
+from messages.alchemyModels import MessagesBase
+from peers.alchemyModels import PeersBase, PeerConnectionsBase
+from users.alchemyModels import UsersBase
+from tags.alchemyModels import TagsBase, UsersTagsBase
 from sqlalchemy.schema import MetaData
 
+
 # Create a combined metadata object from multiple model files
+
 target_metadata = []
-target_metadata = []
-target_metadata.append(MatchingBase.metadata)
-target_metadata.append(MessagesBase.metadata)
+target_metadata.append(UsersBase.metadata)
+target_metadata.append(AccountsBase.metadata)
+target_metadata.append(MatchesBase.metadata)
 target_metadata.append(PeersBase.metadata)
+target_metadata.append(PeerConnectionsBase.metadata)
 target_metadata.append(TagsBase.metadata)
+target_metadata.append(UsersTagsBase.metadata)
+target_metadata.append(MessagesBase.metadata)
 
 # Merge metadata from different files into a single target_metadata
 
@@ -38,7 +45,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

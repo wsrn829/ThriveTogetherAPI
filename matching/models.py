@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+# from pydantic import BaseModel as PydanticBaseModel
+
 
 class HttpError(BaseModel):
     detail: str
