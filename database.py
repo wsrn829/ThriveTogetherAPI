@@ -24,6 +24,7 @@ DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+
 def connect_to_db():
     return SessionLocal()
 
