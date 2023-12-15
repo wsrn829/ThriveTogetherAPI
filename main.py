@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # SessionLocal
-import os
+# import os
 from dotenv import load_dotenv
 
 
@@ -34,10 +34,11 @@ app.include_router(tags.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        os.environ.get("CORS_HOST", "http://localhost:3000"),
-        "http://localhost:3000",
-    ],
+    allow_origins=["*"],
+    # allow_origins=[
+    #     os.environ.get("CORS_HOST", "http://localhost:3000"),
+    #     "http://localhost:3000",
+    # ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -58,7 +59,9 @@ async def startup():
 async def shutdown():
     close_connection(app.db_connection)
 
-
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)
 # def get_db():
 #     db = SessionLocal()
 #     try:

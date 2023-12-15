@@ -19,7 +19,7 @@ db_user = os.getenv('POSTGRES_USER')
 password = os.getenv('POSTGRES_PASSWORD')
 db_name = os.getenv('POSTGRES_DB')
 host = os.getenv('DB_HOST', 'localhost')
-port = int(os.getenv('PORT', 5432))
+port = os.getenv('PORT')
 
 
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
@@ -44,14 +44,3 @@ def initialize_database():
     PeersBase.metadata.create_all(engine)
     PeerConnectionsBase.metadata.create_all(engine)
     MessagesBase.metadata.create_all(engine)
-
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-# def get_db():
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
