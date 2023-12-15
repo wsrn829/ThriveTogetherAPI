@@ -19,7 +19,7 @@ db_user = os.getenv('POSTGRES_USER')
 password = os.getenv('POSTGRES_PASSWORD')
 db_name = os.getenv('POSTGRES_DB')
 host = os.getenv('DB_HOST', 'localhost')
-port = os.getenv('PORT')
+port = os.getenv('DB_PORT')
 
 
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
