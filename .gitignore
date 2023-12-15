@@ -1,2 +1,4 @@
 .env
 alembic.ini
+key1.txt
+key1.txt.pub
