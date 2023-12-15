@@ -59,9 +59,7 @@ async def startup():
 async def shutdown():
     close_connection(app.db_connection)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+
 # def get_db():
 #     db = SessionLocal()
 #     try:
