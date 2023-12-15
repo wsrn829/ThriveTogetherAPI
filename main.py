@@ -4,13 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
+
 # from authenticator import authenticator
 from messages.routers import messages
 from accounts.routers import accounts
 from peers.routers import peers
 from matching.routers import matching
 from tags.routers import tags
-from database import initialize_database
+from database import initialize_database, connect_to_db, close_connection
+
 
 load_dotenv()
 
@@ -40,70 +42,19 @@ app.add_middleware(
 )
 
 
-db_user = os.getenv('POSTGRES_USER')
-password = os.getenv('POSTGRES_PASSWORD')
-db_name = os.getenv('POSTGRES_DB')
-host = os.getenv('DB_HOST', 'localhost')
-port = os.getenv('PORT')
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}
 
 
-# db_config = {
-#     'user': db_user,
-#     'password': password,
-#     'dbname': db_name,
-#     'host': host
-# }
-
-# DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
+@app.on_event("startup")
+async def startup():
+    app.db_connection = connect_to_db()
 
 
-# engine = create_engine(DATABASE_URL)
-
-# # Bind the engine to the Base class
-# UsersBase.metadata.create_all(engine)
-
-# engine.dispose()
-
-# MatchesBase.metadata.create_all(engine)
-
-# engine.dispose()
-
-# PeersBase.metadata.create_all(engine)
-
-# engine.dispose()
-
-# MessagesBase.metadata.create_all(engine)
-
-# engine.dispose()
-
-# UsersTagsBase.metadata.create_all(engine)
-
-# engine.dispose()
-
-# TagsBase.metadata.create_all(engine)
-
-
-# Optional: Create a session
-# Session = sessionmaker(bind=engine)
-# session = Session()
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-# def create_database_engine():
-#     return create_engine(DATABASE_URI)
-
-
-# @app.get("/")
-# def root():
-#     return {"message": "You hit the root path!"}
-
-
-# @app.on_event("startup")
-# async def startup():
-#     app.db_connection = connect_to_db()
-
-
-# @app.on_event("shutdown")
-# async def shutdown():
-#     close_connection(app.db_connection)
+@app.on_event("shutdown")
+async def shutdown():
+    close_connection(app.db_connection)
 
 
 # def get_db():

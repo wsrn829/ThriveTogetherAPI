@@ -22,6 +22,14 @@ port = int(os.getenv('PORT', 5432))
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
 
 engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def connect_to_db():
+    return SessionLocal()
+
+
+def close_connection(db):
+    db.close()
 
 
 def initialize_database():
@@ -37,9 +45,9 @@ def initialize_database():
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
