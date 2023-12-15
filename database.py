@@ -12,6 +12,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Create SSL context
+ssl_args = {'sslmode': 'require'}
+
 db_user = os.getenv('POSTGRES_USER')
 password = os.getenv('POSTGRES_PASSWORD')
 db_name = os.getenv('POSTGRES_DB')
@@ -21,7 +24,7 @@ port = int(os.getenv('PORT', 5432))
 
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, connect_args=ssl_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
