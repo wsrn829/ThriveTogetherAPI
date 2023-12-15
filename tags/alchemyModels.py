@@ -9,11 +9,11 @@ from sqlalchemy import inspect
 TagsBase = declarative_base()
 UsersTagsBase = declarative_base()
 
-print("Before code snippet")
-inspector = inspect(UsersBase.metadata)
-table_names = sorted(UsersBase.metadata.tables.keys())
-print(table_names)
-print("After code snippet")
+# print("Before code snippet")
+# inspector = inspect(UsersBase.metadata)
+# table_names = sorted(UsersBase.metadata.tables.keys())
+# print(table_names)
+# print("After code snippet")
 
 
 # Define the SQLAlchemy model corresponding to Tag
