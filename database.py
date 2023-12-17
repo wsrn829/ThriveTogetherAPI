@@ -14,24 +14,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Create SSL context
-ssl_args = {'sslmode': 'require'}
+# ssl_args = {'sslmode': 'require'}
 
 db_user = os.getenv('POSTGRES_USER')
 password = os.getenv('POSTGRES_PASSWORD')
 db_name = os.getenv('POSTGRES_DB')
 host = os.getenv('DB_HOST', 'localhost')
-port = os.getenv('DB_PORT')
+port_str = os.getenv('DB_PORT')
+port = int(port_str)
 
-
-# set alembic database url indirectly instead of in alembic.ini
-alembic_db_url = os.environ.get('ALEMBIC_DB_URL')
-
-
-context.config.set_main_option("sqlalchemy.url", alembic_db_url)
 
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
 
-engine = create_engine(DATABASE_URL, connect_args=ssl_args)
+# engine = create_engine(DATABASE_URL, connect_args=ssl_args)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
