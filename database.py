@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from alembic import context
 from sqlalchemy.orm import sessionmaker
 from users.alchemyModels import UsersBase
 from matching.alchemyModels import MatchesBase
@@ -21,6 +22,12 @@ db_name = os.getenv('POSTGRES_DB')
 host = os.getenv('DB_HOST', 'localhost')
 port = os.getenv('DB_PORT')
 
+
+# set alembic database url indirectly instead of in alembic.ini
+alembic_db_url = os.environ.get('ALEMBIC_DB_URL')
+
+
+context.config.set_main_option("sqlalchemy.url", alembic_db_url)
 
 DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
 
