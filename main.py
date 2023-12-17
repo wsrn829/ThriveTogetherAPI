@@ -11,19 +11,16 @@ from accounts.routers import accounts
 from peers.routers import peers
 from matching.routers import matching
 from tags.routers import tags
-from database import initialize_database, connect_to_db, close_connection
+from database import initialize_database, close_engine
 
 
 load_dotenv()
 
 app = FastAPI()
 
-
-
-
 # db_engine = create_database_engine()
 
-initialize_database()
+# initialize_database()
 
 # app.include_router(authenticator.router)
 app.include_router(messages.messages_router)
@@ -52,12 +49,13 @@ def root():
 
 @app.on_event("startup")
 async def startup():
-    app.db_connection = connect_to_db()
+    # app.db_connection = connect_to_db()
+    initialize_database()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    close_connection(app.db_connection)
+    close_engine()
 
 
 # def get_db():
