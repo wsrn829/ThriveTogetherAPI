@@ -31,7 +31,7 @@ app.include_router(tags.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    # allow_origins=["*"],
     allow_origins=[
         "https://squid-app-q7fpd.ondigitalocean.app:8080"
     ],
