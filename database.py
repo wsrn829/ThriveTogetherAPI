@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from alembic import context
+# from alembic import context
 from sqlalchemy.orm import sessionmaker
 from users.alchemyModels import UsersBase
 from matching.alchemyModels import MatchesBase
@@ -15,19 +15,22 @@ load_dotenv()
 
 # Create SSL context
 # ssl_args = {'sslmode': 'require'}
+# ssl_ca = '/ca-certificate.crt'
 
-db_user = os.getenv('POSTGRES_USER')
-password = os.getenv('POSTGRES_PASSWORD')
-db_name = os.getenv('POSTGRES_DB')
-host = os.getenv('DB_HOST', 'localhost')
-port_str = os.getenv('DB_PORT')
-port = int(port_str)
+# db_user = os.getenv('POSTGRES_USER')
+# password = os.getenv('POSTGRES_PASSWORD')
+# db_name = os.getenv('POSTGRES_DB')
+# host = os.getenv('DB_HOST', 'localhost')
+# port_str = os.getenv('DB_PORT')
+# port = int(port_str)
 
 
-DATABASE_URL = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}'
+# database_url = f'postgresql://{db_user}:{password}@{host}:{port}/{db_name}?sslmode=require'
 
-# engine = create_engine(DATABASE_URL, connect_args=ssl_args)
-engine = create_engine(DATABASE_URL)
+database_url = os.getenv('DATABASE_URL')
+
+engine = create_engine(database_url)
+# engine = create_engine(database_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
