@@ -2,45 +2,28 @@ from logging.config import fileConfig
 import os
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
 from alembic import context
-from accounts.alchemyModels import AccountsBase
-from matching.alchemyModels import MatchesBase
-from messages.alchemyModels import MessagesBase
-from peers.alchemyModels import PeersBase, PeerConnectionsBase
-from users.alchemyModels import UsersBase
-from tags.alchemyModels import TagsBase, UsersTagsBase
-from sqlalchemy.schema import MetaData
+from dotenv import load_dotenv
+from base import Base
 
+load_dotenv('./.env')
 
 # Create a combined metadata object from multiple model files
 
-target_metadata = []
-target_metadata.append(UsersBase.metadata)
-target_metadata.append(AccountsBase.metadata)
-target_metadata.append(MatchesBase.metadata)
-target_metadata.append(PeersBase.metadata)
-target_metadata.append(PeerConnectionsBase.metadata)
-target_metadata.append(TagsBase.metadata)
-target_metadata.append(UsersTagsBase.metadata)
-target_metadata.append(MessagesBase.metadata)
+target_metadata = Base.metadata
 
 # Merge metadata from different files into a single target_metadata
-
-combined_metadata = MetaData()
-for metadata in target_metadata:
-    for table in metadata.sorted_tables:
-        table.tometadata(combined_metadata)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
 
-alembic_db_url = os.environ.get('ALEMBIC_DB_URL')
+# alembic_db_url = os.environ.get('ALEMBIC_DB_URL')
 
 # Set the database URL in Alembic's context
-context.config.set_main_option("sqlalchemy.url", alembic_db_url)
+# context.config.set_main_option("sqlalchemy.url", alembic_db_url)
+config.set_main_option('sqlalchemy.url', str(os.getenv('ALEMBIC_DB_URL')))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

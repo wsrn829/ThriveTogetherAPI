@@ -1,14 +1,11 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-
-PeersBase = declarative_base()
-PeerConnectionsBase = declarative_base()
+from base import Base
 
 
 # Define the SQLAlchemy model corresponding to PeerConnection
-class PeersConnection(PeersBase):
-    __tablename__ = 'peers_connections'
+class PeerConnections(Base):
+    __tablename__ = 'peer_connections'
 
     id = Column(Integer, primary_key=True)
     sender = Column(Integer)
@@ -20,12 +17,12 @@ class PeersConnection(PeersBase):
 
 
 # Define the SQLAlchemy model corresponding to Peer
-class Peer(PeerConnectionsBase):
+class Peers(Base):
     __tablename__ = 'peers'
 
     id = Column(Integer, primary_key=True)
-    # user_id = Column(Integer, ForeignKey('users.id'))
-    # peer_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
+    peer_id = Column(Integer, ForeignKey('users.id'))
     # Assuming both peer and user are from the same table 'users'
     peer_name = Column(String)
     profile_link = Column(String)
@@ -34,8 +31,8 @@ class Peer(PeerConnectionsBase):
     status = Column(Integer)
 
     # Relationships with User model for user and peer
-    # user = relationship("User", foreign_keys=[user_id])
-    # peer = relationship("User", foreign_keys=[peer_id])
+    user = relationship("User", foreign_keys=[user_id])
+    peer = relationship("User", foreign_keys=[peer_id])
 
 
 # # Define the SQLAlchemy model corresponding to PeerConnections

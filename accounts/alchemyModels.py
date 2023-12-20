@@ -1,12 +1,8 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from base import Base
 
 
-# SQLAlchemy models for database mapping
-AccountsBase = declarative_base()
-
-
-class Accounts(AccountsBase):
+class Accounts(Base):
     __tablename__ = 'accounts'
 
     id = Column(Integer, primary_key=True)
