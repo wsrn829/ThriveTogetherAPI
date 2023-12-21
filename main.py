@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 
-# from authenticator import authenticator
+from authenticator import authenticator
 from messages.routers import messages
 from accounts.routers import accounts
 from peers.routers import peers
@@ -22,7 +22,7 @@ app = FastAPI()
 
 # initialize_database()
 
-# app.include_router(authenticator.router)
+app.include_router(authenticator.router)
 app.include_router(messages.messages_router)
 app.include_router(accounts.router)
 app.include_router(peers.router)
