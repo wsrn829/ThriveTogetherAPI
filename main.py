@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 
 
 
-# from authenticator import authenticator
+
+from authenticator import authenticator
 from messages.routers import messages
 from accounts.routers import accounts
 from peers.routers import peers
@@ -24,7 +25,7 @@ app = FastAPI(middleware=Middleware)
 
 # initialize_database()
 
-# app.include_router(authenticator.router)
+app.include_router(authenticator.router)
 app.include_router(messages.messages_router)
 app.include_router(accounts.router)
 app.include_router(peers.router)
@@ -34,9 +35,8 @@ app.include_router(tags.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://lobster-app-w277t.ondigitalocean.app:8080",
-        "https://lobster-app-w277t.ondigitalocean.app:8080/"
-
+        "https://oyster-app-cxtg3.ondigitalocean.app:8080",
+        "https://oyster-app-cxtg3.ondigitalocean.app:8080/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
