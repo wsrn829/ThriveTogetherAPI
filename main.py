@@ -19,7 +19,20 @@ from database import initialize_database, close_engine
 
 load_dotenv()
 
-app = FastAPI(middleware=Middleware)
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "https://oyster-app-cxtg3.ondigitalocean.app:8080",
+            "https://oyster-app-cxtg3.ondigitalocean.app:8080/"
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"]
+    )
+]
+
+app = FastAPI(middleware=middleware)
 
 # db_engine = create_database_engine()
 
@@ -31,18 +44,6 @@ app.include_router(accounts.router)
 app.include_router(peers.router)
 app.include_router(matching.router)
 app.include_router(tags.router)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://oyster-app-cxtg3.ondigitalocean.app:8080",
-        "https://oyster-app-cxtg3.ondigitalocean.app:8080/"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 @app.get("/")
 def root():
