@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware import Middleware
 # SessionLocal
 # import os
 from dotenv import load_dotenv
+
+
 
 
 from authenticator import authenticator
@@ -16,7 +19,7 @@ from database import initialize_database, close_engine
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(middleware=Middleware)
 
 # db_engine = create_database_engine()
 
@@ -31,9 +34,9 @@ app.include_router(tags.router)
 
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["*"],
     allow_origins=[
-        "https://oyster-app-cxtg3.ondigitalocean.app",
+        "https://oyster-app-cxtg3.ondigitalocean.app:8080",
+        "https://oyster-app-cxtg3.ondigitalocean.app:8080/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -44,7 +47,6 @@ app.add_middleware(
 @app.get("/")
 def root():
     return {"message": "You hit the root path!"}
-
 
 @app.on_event("startup")
 async def startup():
