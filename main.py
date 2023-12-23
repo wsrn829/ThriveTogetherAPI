@@ -1,13 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware import Middleware
-# SessionLocal
-# import os
 from dotenv import load_dotenv
-
-
-
-
 from authenticator import authenticator
 from messages.routers import messages
 from accounts.routers import accounts

@@ -35,7 +35,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.post("/accounts",
+@router.post("api/accounts",
              tags=["Accounts"],
              response_model=AccountToken | HttpError
              )
@@ -58,7 +58,7 @@ async def create_account(
     return AccountToken(account=account, **token.dict())
 
 
-@router.get("/accounts/{account_id}",
+@router.get("api/accounts/{account_id}",
             tags=["Accounts"],
             response_model=AccountOut
             )
@@ -76,7 +76,7 @@ async def get_account_info(
     return account
 
 
-@router.put("/accounts/{account_id}",
+@router.put("api/accounts/{account_id}",
             tags=["Accounts"],
             response_model=AccountOut
             )
