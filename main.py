@@ -23,7 +23,7 @@ middleware = [
     Middleware(
         CORSMiddleware,
         allow_origins=[
-            "https://oyster-app-cxtg3.ondigitalocean.app:8080",
+            # "https://oyster-app-cxtg3.ondigitalocean.app:8080",
             # "https://oyster-app-cxtg3.ondigitalocean.app:8080/",
             "https://oyster-app-cxtg3.ondigitalocean.app",
             # "https://oyster-app-cxtg3.ondigitalocean.app/"
